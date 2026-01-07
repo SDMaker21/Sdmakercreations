@@ -1,4 +1,4 @@
-sds<!doctype html>
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
@@ -9,38 +9,14 @@ sds<!doctype html>
 <body>
   <main class="hero">
     <div class="card">
-      <!-- Logo: reemplaza assets/logo.png con tu imagen real (PNG/JPG/SVG) -->
-      <!-- Cabecera movida al footer: logo, título, descripción y botón de contacto -->
-    <div class="sections">
-      <section class="section-card">
-        <h2>Galería</h2>
-        <div id="portfolioGallery" class="works-gallery small-thumbs">
-          <p class="muted">No hay trabajos aún. Sube archivos para mostrarlos aquí.</p>
-        </div>
-        <div style="display:flex;gap:64px;align-items:center;margin-top:12px;">
-          <div id="profilePreview" class="gallery-preview profile-preview" tabindex="0" aria-label="Quién soy">
-            <img src="assets/logo.jpeg" alt="SDMaker" class="profile-logo" />
-            <div class="preview-overlay">Quién soy</div>
-          </div>
-          <div id="socialPreview" class="gallery-preview social-preview" tabindex="0" aria-label="Redes sociales">
-            <img src="assets/logo_redes.png" alt="Redes" class="social-icon" />
-            <div class="preview-overlay">Redes</div>
-          </div>
-        </div>
-      </section>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="card footer-card">
       <div class="logo">
         <!-- Preferir archivo físico; script hará fallback si no existe -->
         <img src="assets/logo.jpeg" alt="Logo" class="logo-img" />
       </div>
       <h1>Consulta el tipo de diseños, logos y ediciones</h1>
       <p class="lead">Ofrecemos diseños, logos y ediciones personalizados.</p>
-      <!-- Botón único para abrir panel de contacto (moved to footer) -->
-      <div style="display:flex;gap:12px;align-items:center;">
+      <!-- Botón único para abrir panel de contacto (moved to top) -->
+      <div style="display:flex;gap:12px;align-items:center;margin-bottom:24px;">
         <button class="btn" id="openContactBtn" type="button" title="Abrir contacto">Contáctanos</button>
         <div id="authArea" style="display:flex;gap:8px;align-items:center;">
           <span id="authStatus" class="muted">Invitado</span>
@@ -50,6 +26,34 @@ sds<!doctype html>
           </button>
         </div>
       </div>
+    </div>
+    <div class="sections">
+      <section class="section-card">
+        <h2>Galería</h2>
+        <div id="portfolioGallery" class="works-gallery small-thumbs">
+          <p class="muted">No hay trabajos aún. Sube archivos para mostrarlos aquí.</p>
+        </div>
+      </section>
+      <section class="section-card">
+        <h2>Quién soy</h2>
+        <div id="profilePreview" class="gallery-preview profile-preview" tabindex="0" aria-label="Quién soy">
+          <img src="assets/logo.jpeg" alt="SDMaker" class="profile-logo" />
+          <div class="preview-overlay">Quién soy</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <h2>Redes</h2>
+        <div id="socialPreview" class="social-preview" tabindex="0" aria-label="Redes sociales">
+          <img src="assets/logo_redes.png" alt="Redes" class="social-icon" />
+          <div class="preview-overlay">Redes</div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="card footer-card">
+      <!-- Footer minimal, content moved to top -->
     </div>
   </footer>
 
@@ -255,6 +259,14 @@ sds<!doctype html>
         }catch(e){return{}};
       }
 
+      // Initialize default social links if not present
+      if (!localStorage.getItem('social_links')) {
+        saveSocialLinks({
+          instagram: 'https://www.instagram.com/sanmedin_41/',
+          facebook: 'https://www.facebook.com/santiago.medina.515897'
+        });
+      }
+
       function saveSocialLinks(obj){
         localStorage.setItem('social_links', JSON.stringify(obj));
       }
@@ -380,14 +392,7 @@ sds<!doctype html>
         }catch(e){}
       })();
 
-      // render footer social links on load
-      (function renderFooterSocial(){
-        var container = document.createElement('div'); container.id = 'footerSocialLinks'; container.style.marginTop = '10px';
-        var links = loadSocialLinks();
-        if (links.instagram){ var a = document.createElement('a'); a.href = links.instagram; a.target = '_blank'; a.rel='noopener noreferrer'; a.textContent = 'Instagram'; a.className='linklike'; container.appendChild(a); }
-        if (links.facebook){ var a2 = document.createElement('a'); a2.href = links.facebook; a2.target = '_blank'; a2.rel='noopener noreferrer'; a2.textContent = 'Facebook'; a2.className='linklike'; a2.style.marginLeft='8px'; container.appendChild(a2); }
-        var footer = document.querySelector('.footer'); if (footer) footer.appendChild(container);
-      })();
+
 
       // --- Trabajos realizados: upload + IndexedDB gallery ---
       var openWorksBtn = document.getElementById('openWorksBtn');
