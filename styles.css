@@ -1,0 +1,227 @@
+:root{
+  --bg:#f6f7fb; 
+  --card:#ffffff;
+  --text:#111827;
+  --accent:#25D366; /* WhatsApp green */
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Segoe UI, Roboto, Arial, sans-serif;color:var(--text)}
+.body-bg{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px}
+body{
+  background:linear-gradient(180deg,#05294a 0%,#0b3d91 100%);
+  min-height:100vh;
+  display:block;
+  padding:0;
+  margin:0;
+  overflow-x:hidden;
+}
+.hero{
+  width:100%;
+  max-width:720px;
+  margin:0 auto;
+  padding:16px;
+}
+.card{background:var(--card);border-radius:12px;padding:36px;text-align:center;box-shadow:0 6px 20px rgba(2,6,23,.45)}
+.logo{margin:0 auto 18px;width:120px;height:auto}
+.logo-img{display:block;width:120px;height:auto;border-radius:8px}
+h1{font-size:1.5rem;margin-bottom:8px}
+.lead{color:#374151;margin-bottom:20px}
+.btn{display:inline-block;padding:14px 22px;border-radius:10px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;box-shadow:0 6px 18px rgba(37,211,102,.18)}
+.btn:hover{filter:brightness(.98)}
+.hint{margin-top:12px;color:#6b7280;font-size:.9rem}
+.footer{margin-top:18px;text-align:center;color:#cbd5e1}
+
+/* Footer card: keep the same card look but constrained to footer width */
+.footer .card, .footer .footer-card{margin:18px auto;max-width:720px;padding:24px}
+
+/* Secciones adicionales */
+.sections{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:64px}
+.section-card{background:var(--card);padding:18px;border-radius:10px;box-shadow:0 6px 18px rgba(2,6,23,.06);text-align:left}
+.section-card h2{margin-bottom:8px;font-size:1.1rem}
+.section-card p{color:#374151}
+
+/* Make text readable on dark background */
+h1{color:#ffffff}
+.lead{color:#e6eefb}
+.hint{color:#c7d7ff}
+
+@media (max-width:480px){
+  html, body {
+    min-width:0;
+    width:100vw;
+    overflow-x:hidden;
+  }
+  .card{padding:16px}
+  h1{font-size:1.1rem}
+  .sections{gap:10px;margin-top:32px}
+  .works-gallery.small-thumbs img { width:60px;height:60px; }
+}
+
+/* Ajuste: título y párrafo principal en color negro según solicitud */
+.card h1, .card .lead { color: #000 !important; }
+
+/* Panel de contacto (modal) */
+.contact-panel{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(2,6,23,0.6);visibility:hidden;opacity:0;transition:opacity .22s ease, visibility .22s ease;z-index:60}
+.contact-panel.open{visibility:visible;opacity:1}
+.contact-panel__inner{background:var(--card);padding:28px;border-radius:12px;max-width:420px;width:90%;box-shadow:0 10px 30px rgba(2,6,23,.35);text-align:left;position:relative}
+.contact-panel__inner h2{margin:0 0 8px;font-size:1.25rem}
+.contact-panel__inner p{margin-bottom:14px;color:#334155}
+.contact-close{position:absolute;right:18px;top:18px;background:transparent;border:0;font-size:18px;cursor:pointer}
+.contact-action{display:inline-block;margin-top:8px}
+
+@media (max-width:720px){
+  .sections{grid-template-columns:1fr}
+}
+
+/* Trabajos realizados: upload & gallery styles */
+.btn.secondary{background:#0b3d91;color:#fff;margin-top:10px}
+.upload-area{border:2px dashed rgba(11,61,145,0.12);padding:18px;border-radius:8px;text-align:center;background:linear-gradient(180deg,rgba(11,61,145,0.02),transparent);cursor:pointer}
+.upload-area p{margin:0;color:#334155}
+.upload-area.dragover{background:rgba(11,61,145,0.04);border-color:#0b3d91}
+.linklike{background:none;border:0;color:#0b3d91;text-decoration:underline;cursor:pointer;padding:0;font-weight:600}
+.works-gallery{margin-top:14px}
+.upload-queue{margin-top:12px;text-align:left}
+.upload-list{display:flex;flex-direction:column;gap:8px}
+.upload-row{display:flex;gap:8px;align-items:center}
+.upload-info{flex:1;color:#0f172a;font-weight:600}
+.upload-desc{flex:2;padding:8px;border-radius:6px;border:1px solid #e6eefb}
+.work-desc{color:#475569;margin-top:6px;font-size:.95rem;min-height:18px}
+.work-desc-input{width:100%;padding:6px;border-radius:6px;border:1px solid #e6eefb}
+.works-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.works-grid.small{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
+.works-grid.small .work-item{background:var(--card);border-radius:8px;padding:6px;box-shadow:0 6px 18px rgba(2,6,23,.05);display:flex;flex-direction:column}
+.work-item{background:var(--card);border-radius:8px;padding:8px;box-shadow:0 6px 18px rgba(2,6,23,.05);display:flex;flex-direction:column}
+.work-thumb{width:100%;height:120px;object-fit:cover;border-radius:6px;cursor:pointer}
+.small-thumbs .works-grid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:10px}
+.small-thumbs .work-thumb{height:100px}
+.work-file{min-height:110px;display:flex;align-items:center;justify-content:center;background:#f3f4f6;border-radius:6px;padding:6px;color:#334155;text-align:center}
+.work-meta{margin-top:8px;display:flex;align-items:center;justify-content:space-between}
+.work-name{font-size:.95rem;color:#0f172a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:80%}
+.work-actions .linklike{color:#0b3d91}
+.btn.small{padding:6px 8px;border-radius:6px;font-size:.9rem}
+.btn.small.danger{background:#ef4444;color:#fff}
+
+@media (max-width:480px){
+  .works-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* Mobile specific improvements */
+@media (max-width:720px){
+  .hero{padding:12px}
+  .card{padding:18px;border-radius:10px}
+  .footer .footer-card{padding:16px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px}
+  .footer .logo{width:80px}
+  .sections{gap:12px}
+}
+
+@media (max-width:480px){
+  .card{padding:20px}
+  h1{font-size:1.25rem}
+  .sections{grid-template-columns:1fr;gap:20px;margin-top:32px}
+  /* Make preview boxes larger for better touch */
+  .gallery-preview, .profile-preview, .social-preview{width:140px;height:140px;border-radius:10px;margin:0 auto}
+  .gallery-preview .preview-overlay, .profile-preview .preview-overlay, .social-preview .preview-overlay{padding:8px;font-size:1rem;font-weight:600}
+  /* Center profile preview content on small screens */
+  .profile-preview{align-items:center;justify-content:center}
+  /* Horizontal gallery: show 1 item per view on small screens */
+  .works-grid.horizontal-2{padding:8px}
+  .works-grid.horizontal-2 .work-item{flex:0 0 100%;min-width:100%;scroll-snap-align:center}
+  .works-grid.horizontal-2 .work-thumb{height:180px}
+  /* Nav buttons larger for better touch */
+  .gallery-nav-btn{width:50px;height:50px;font-size:1.2rem}
+  .gallery-nav-left{left:10px}
+  .gallery-nav-right{right:10px}
+  /* User menu becomes a full-width bottom sheet */
+  .user-menu{position:fixed;left:0;right:0;bottom:0;width:100%;border-radius:12px 12px 0 0;padding:20px;margin:0;box-shadow:0 -8px 30px rgba(2,6,23,0.5)}
+  .user-menu .user-menu-inner{gap:16px}
+  .btn{padding:16px 20px;font-size:1rem}
+  /* Improve touch targets */
+  .btn.small{padding:12px 16px;font-size:0.95rem}
+  /* Make contact panels full-screen on small devices for better usability */
+  .contact-panel__inner{width:100%;height:100%;max-width:none;border-radius:0;padding:24px;}
+  /* Add more spacing between sections */
+  .section-card{margin-bottom:16px}
+}
+
+/* Lightbox styles */
+.lightbox{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(2,6,23,0.75);visibility:hidden;opacity:0;transition:opacity .18s ease, visibility .18s ease;z-index:120}
+.lightbox.open{visibility:visible;opacity:1}
+.lightbox-inner{position:relative;max-width:90%;max-height:90%;display:flex;align-items:center;justify-content:center}
+.lightbox-img{max-width:100%;max-height:80vh;border-radius:8px;box-shadow:0 12px 40px rgba(2,6,23,.6)}
+.lightbox-caption{color:#fff;margin-top:10px;text-align:center}
+.lightbox-caption{font-size:.95rem}
+
+/* Preview box for gallery (click to open full gallery) */
+.gallery-preview{width:120px;height:120px;border-radius:8px;background:#f3f4f6;background-size:cover;background-position:center;display:inline-block;position:relative;cursor:pointer;border:2px solid rgba(11,61,145,0.06);overflow:hidden}
+.gallery-preview .preview-overlay{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(0deg, rgba(2,6,23,0.6), transparent);color:#fff;padding:6px;text-align:center;font-weight:700}
+.gallery-preview:focus{outline:3px solid rgba(11,61,145,0.25)}
+
+/* Horizontal gallery: show 2 items per viewport, scroll horizontally */
+.works-grid.horizontal-2{display:flex;flex-direction:row;gap:12px;overflow-x:auto;padding:8px 4px;scroll-snap-type:x mandatory}
+.works-grid.horizontal-2::-webkit-scrollbar{height:10px}
+.works-grid.horizontal-2 .work-item{flex:0 0 calc(50% - 6px);min-width:calc(50% - 6px);box-sizing:border-box;scroll-snap-align:start}
+.works-grid.horizontal-2 .work-thumb{width:100%;height:160px;object-fit:cover;border-radius:6px;display:block}
+.works-grid.horizontal-2 .work-meta{padding:8px 6px}
+
+/* Navigation buttons overlay for horizontal gallery */
+.gallery-panel{position:relative}
+.gallery-nav-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(11,61,145,0.95);color:#fff;border:none;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10}
+.gallery-nav-left{left:8px}
+.gallery-nav-right{right:8px}
+.gallery-nav-btn[disabled]{opacity:.35;cursor:not-allowed}
+
+/* Profile preview uses same style as gallery-preview */
+.profile-preview{width:120px;height:120px;border-radius:8px;background:#0b3d91;color:#fff;display:inline-block;position:relative;cursor:pointer;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;border:2px solid rgba(11,61,145,0.08)}
+.profile-preview .preview-overlay{background:linear-gradient(0deg, rgba(2,6,23,0.6), transparent);padding:6px;width:100%;text-align:center;font-weight:700}
+.profile-preview .profile-logo{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;display:block}
+
+.social-preview{ display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px; padding:12px; background:#0b1220; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.35); }
+.social-preview .social-icon{ width:56px; height:56px; border-radius:8px; display:block; object-fit:cover; }
+.social-preview img.social-icon{ width:56px; height:56px; border-radius:8px; object-fit:cover; display:block; box-shadow:0 1px 4px rgba(0,0,0,0.25); }
+
+.modal .modal-body input[type="text"], .modal .modal-body input[type="url"]{ width:100%; padding:10px; border-radius:6px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.02); color:#fff; }
+.modal .modal-footer .btn{ margin-right:8px; }
+.social-message{ display:none; color:#9fe6a0; font-size:0.9rem; margin-top:8px; }
+.linklike{ color:#9cc6ff; text-decoration:none; }
+
+/* Auth UI styles */
+#authArea .muted{ color:rgba(255,255,255,0.75); font-size:0.95rem; }
+#gsiButtonContainer > div{ display:inline-block; }
+.contact-panel input[type="password"], .contact-panel input[type="text"], .contact-panel input[type="email"]{ width:100%; padding:8px; margin-top:6px; border-radius:6px; border:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.02); color:#fff; }
+
+/* Auth modal: make inputs visible (black text on white bg) */
+#authModal .contact-panel__inner input[type="email"],
+#authModal .contact-panel__inner input[type="text"],
+#authModal .contact-panel__inner input[type="password"]{
+  background: #fff; color: #000; border: 1px solid rgba(0,0,0,0.12);
+}
+#authModal .contact-panel__inner input::placeholder{ color: #666; }
+/* OTP area (removed) */
+/* previously used for EmailJS OTP; removed per request */
+
+/* User menu (dropdown) */
+.footer{ position: relative; }
+.user-menu{ position: absolute; right:16px; bottom:84px; width:320px; background:#0b1220; color:#fff; border-radius:10px; box-shadow:0 8px 24px rgba(2,6,23,0.6); z-index:80; padding:12px; }
+.user-menu .user-menu-inner{ display:flex; flex-direction:column; gap:8px; }
+.user-menu h3{ margin:0; font-size:1.05rem; }
+.user-menu input{ width:100%; padding:8px; border-radius:6px; border:1px solid rgba(0,0,0,0.12); background:#fff; color:#000; }
+.user-menu details > summary{ color:#cfe6ff; }
+.user-avatar{ width:28px; height:28px; border-radius:50%; object-fit:cover; margin-right:8px; vertical-align:middle; }
+.btn .user-avatar{ vertical-align:middle; }
+
+/* Social preview style (same as profile) */
+.social-preview{width:120px;height:120px;border-radius:8px;background:#08325a;color:#fff;display:inline-block;position:relative;cursor:pointer;overflow:hidden;display:flex;align-items:center;justify-content:center;border:2px solid rgba(11,61,145,0.08)}
+.social-preview .preview-overlay{background:linear-gradient(0deg, rgba(2,6,23,0.6), transparent);padding:6px;width:100%;text-align:center;font-weight:700}
+.social-preview .social-icon{ width:64px; height:64px; object-fit:contain; display:block; margin:0 auto; }
+.social-preview img.social-icon{ width:64px; height:64px; }
+
+/* Inputs inside modals */
+.contact-panel input[type="url"]{width:100%;padding:8px;border-radius:6px;border:1px solid #e6edf3;margin-top:6px;margin-bottom:8px}
+.contact-panel label{font-weight:600;font-size:.95rem;color:#0b3d91}
+.contact-panel .btn{margin-top:6px}
+
+/* Profile modal inherits contact-panel styles (centered modal) */
+.contact-panel .signature{font-weight:700;margin-top:12px;color:#0b3d91}
+.lightbox-close,.lightbox-prev,.lightbox-next{position:absolute;background:transparent;border:0;color:#fff;font-size:22px;cursor:pointer}
+.lightbox-close{right:-6px;top:-6px}
+.lightbox-prev{left:-36px;top:50%;transform:translateY(-50%);font-size:32px}
+.lightbox-next{right:-36px;top:50%;transform:translateY(-50%);font-size:32px}

@@ -1,0 +1,770 @@
+sds<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Consulta diseños, logos y ediciones — 0416 3403334</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="hero">
+    <div class="card" style="margin-bottom:24px;">
+      <div class="logo">
+        <img src="assets/logo.jpeg" alt="Logo" class="logo-img" />
+      </div>
+      <h1>Consulta el tipo de diseños, logos y ediciones</h1>
+      <p class="lead">Ofrecemos diseños, logos y ediciones personalizados.</p>
+      <div style="display:flex;gap:12px;align-items:center;margin-bottom:8px;">
+        <button class="btn" id="openContactBtn" type="button" title="Abrir contacto">Contáctanos</button>
+      </div>
+    </div>
+    <div class="sections">
+      <div class="sections-row" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:18px;align-items:stretch;">
+        <section class="section-card" style="display:flex;align-items:center;justify-content:center;">
+          <div id="galleryPreview" class="gallery-preview" tabindex="0" aria-label="Galería" style="cursor:pointer;">
+            <img src="assets/previewgalery.png" alt="Galería" class="gallery-logo" style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;z-index:0;border-radius:10px;" />
+            <style>
+              #galleryPreview {
+                position: relative;
+                width: 100%;
+                aspect-ratio: 1/1;
+                min-height: 80px;
+                max-width: 120px;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #eaeaea;
+              }
+              #galleryPreview .preview-overlay {
+                position: absolute;
+                z-index: 1;
+                left: 0; right: 0; bottom: 0;
+                background: linear-gradient(0deg,rgba(0,0,0,0.45) 60%,transparent 100%);
+                color: #fff;
+                font-weight: bold;
+                text-align: center;
+                padding: 8px 0 4px 0;
+                border-radius: 0 0 10px 10px;
+                font-size: 1.1em;
+              }
+            </style>
+            <div class="preview-overlay">Galería</div>
+          </div>
+          <!-- Modal galería -->
+          <div id="galleryModal" class="contact-panel" aria-hidden="true" role="dialog" aria-labelledby="galleryModalTitle" style="z-index:1000;">
+            <div class="contact-panel__inner" role="document" style="max-width:600px;">
+              <button id="closeGalleryModalBtn" class="contact-close" aria-label="Cerrar">✕</button>
+              <h2 id="galleryModalTitle">Galería</h2>
+              <div id="galleryImages" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
+                  <img src="assets/galery.jpg" alt="Trabajo 1" class="gallery-img-thumb" data-index="0" style="width:120px;height:120px;object-fit:cover;border-radius:8px;box-shadow:0 2px 8px #0002;cursor:pointer;" />
+                  <img src="assets/galery2.png" alt="Trabajo 2" class="gallery-img-thumb" data-index="1" style="width:120px;height:120px;object-fit:cover;border-radius:8px;box-shadow:0 2px 8px #0002;cursor:pointer;" />
+                  <img src="assets/galery3.png" alt="Trabajo 3" class="gallery-img-thumb" data-index="2" style="width:120px;height:120px;object-fit:cover;border-radius:8px;box-shadow:0 2px 8px #0002;cursor:pointer;" />
+                  <img src="assets/galery4.jpg" alt="Trabajo 4" class="gallery-img-thumb" data-index="3" style="width:120px;height:120px;object-fit:cover;border-radius:8px;box-shadow:0 2px 8px #0002;cursor:pointer;" />
+                  <img src="assets/galery5.png" alt="Trabajo 5" class="gallery-img-thumb" data-index="4" style="width:120px;height:120px;object-fit:cover;border-radius:8px;box-shadow:0 2px 8px #0002;cursor:pointer;" />
+                  <!-- Lightbox para galería -->
+                  <div id="galleryLightbox" style="display:none;position:fixed;z-index:2000;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;flex-direction:column;">
+                    <button id="galleryLightboxClose" style="position:absolute;top:18px;right:18px;font-size:2rem;background:none;border:none;color:#fff;cursor:pointer;">✕</button>
+                    <button id="galleryLightboxPrev" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:2.5rem;background:none;border:none;color:#fff;cursor:pointer;">❮</button>
+                    <img id="galleryLightboxImg" src="" alt="Imagen ampliada" style="max-width:90vw;max-height:70vh;border-radius:12px;box-shadow:0 4px 24px #000a;" />
+                    <button id="galleryLightboxNext" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:2.5rem;background:none;border:none;color:#fff;cursor:pointer;">❯</button>
+                    <div id="galleryLightboxCaption" style="color:#fff;margin-top:18px;font-size:1.1em;text-align:center;"></div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="section-card" style="display:flex;align-items:center;justify-content:center;">
+          <div id="socialPreview" class="gallery-preview social-preview" tabindex="0" aria-label="Redes sociales" style="margin:0 auto;">
+            <img src="assets/logo_redes.png" alt="Redes" class="social-icon" />
+            <div class="preview-overlay">Redes</div>
+          </div>
+        </section>
+        <section class="section-card" style="display:flex;align-items:center;justify-content:center;">
+          <div id="profilePreview" class="gallery-preview profile-preview" tabindex="0" aria-label="Quién soy">
+            <img src="assets/logo.jpeg" alt="SDMaker" class="profile-logo" />
+            <div class="preview-overlay">Quién soy</div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer eliminado para evitar duplicados -->
+
+  <!-- User dropdown menu (login & register) -->
+  <div id="userMenu" class="user-menu" hidden aria-hidden="true" role="menu">
+    <div class="user-menu-inner">
+      <h3 style="margin-top:0;margin-bottom:6px;">Acceso</h3>
+      <label for="loginEmail">Gmail</label>
+      <input id="loginEmail" type="email" placeholder="tu@ejemplo.com" />
+      <label for="loginPassword">Contraseña</label>
+      <input id="loginPassword" type="text" placeholder="Contraseña (visible)" />
+      <div style="display:flex;gap:8px;margin-top:8px;align-items:center;">
+        <button id="loginBtn" class="btn">Acceder</button>
+        <div id="gsiButtonContainer" style="margin-left:6px;"></div>
+      </div>
+      <details style="margin-top:12px;">
+        <summary style="cursor:pointer;">Registrar / Configurar admin</summary>
+        <p style="margin-top:8px;">Introduce el email y la contraseña que usarás como admin (la contraseña se guardará en hash en este navegador).</p>
+        <label for="adminEmailSetup">Email admin</label>
+        <input id="adminEmailSetup" type="email" placeholder="admin@ejemplo.com" />
+        <label for="adminPassSetup">Contraseña admin (visible)</label>
+        <input id="adminPassSetup" type="text" placeholder="Contraseña admin (visible)" />
+        <div style="display:flex;gap:8px;margin-top:8px;">
+          <button id="saveAdminSetupBtn" class="btn">Guardar credenciales admin</button>
+        </div>
+      </details>
+      <!-- EmailJS removed: only Google Client ID is supported now -->
+      <div style="margin-top:12px;display:flex;gap:8px;align-items:center;">
+        <label for="googleClientId" style="margin:0;">Google Client ID (opcional)</label>
+        <input id="googleClientId" type="text" placeholder="G...apps.googleusercontent.com" style="flex:1;" />
+        <button id="saveGoogleClientIdBtn" class="btn">Guardar</button>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:8px;align-items:center;justify-content:flex-end;">
+        <button id="logoutBtn" class="btn secondary">Cerrar sesión</button>
+      </div>
+      <div id="authMsg" style="margin-top:10px;color:#9fe6a0;display:none;">Listo</div>
+    </div>
+  </div>
+  <!-- Social modal (input & save links) -->
+  <div id="socialModal" class="contact-panel" aria-hidden="true" role="dialog" aria-labelledby="socialModalTitle">
+    <div class="contact-panel__inner" role="document">
+      <button id="closeSocialModalBtn" class="contact-close" aria-label="Cerrar">✕</button>
+      <h2 id="socialModalTitle">Redes</h2>
+      <div style="display:flex;flex-direction:column;gap:16px;margin-top:18px;align-items:center;">
+        <a href="https://www.facebook.com/santiago.medina.515897" target="_blank" rel="noopener noreferrer" class="btn" style="width:100%;max-width:340px;text-align:center;background:#1877f3;">Facebook</a>
+        <a href="https://www.instagram.com/sanmedin_41/" target="_blank" rel="noopener noreferrer" class="btn" style="width:100%;max-width:340px;text-align:center;background:#e1306c;">Instagram</a>
+      </div>
+    </div>
+  </div>
+  <!-- Profile modal (opens from profile preview) -->
+  <div id="profileModal" class="contact-panel" aria-hidden="true" role="dialog" aria-labelledby="profileModalTitle">
+    <div class="contact-panel__inner" role="document">
+      <button id="closeProfileModalBtn" class="contact-close" aria-label="Cerrar">✕</button>
+      <h2 id="profileModalTitle">Quién soy</h2>
+      <p>Soy un estudiante con las ganas de ayudar en la creación de diseños y logos, así como también de videos. Razonando el precio dependiendo del trabajo y del tiempo que se tarde; busco ayudar de una forma mutua: consultar y yo trabajo según la necesidad. Soy confiable.</p>
+      <p class="signature">Santiago Medina "SDMaker"</p>
+    </div>
+  </div>
+  <!-- Panel desplegable de contacto (modal) -->
+  <div id="contactPanel" class="contact-panel" aria-hidden="true" role="dialog" aria-labelledby="contactTitle">
+    <div class="contact-panel__inner" role="document">
+      <button id="closeContactBtn" class="contact-close" aria-label="Cerrar">✕</button>
+      <h2 id="contactTitle">Contáctanos</h2>
+      <p>Puedes escribirnos por WhatsApp al número <strong>0416 3403334</strong> o abrir el chat directamente.</p>
+      <a class="btn contact-action" id="whatsappLink" href="https://wa.me/584163403334" target="_blank" rel="noopener noreferrer">Abrir WhatsApp</a>
+    </div>
+  </div>
+
+  <!-- Ventana: Trabajos realizados (upload + galería) -->
+  <div id="worksPanel" class="contact-panel works-panel" aria-hidden="true" role="dialog" aria-labelledby="worksTitle">
+    <div class="contact-panel__inner" role="document">
+      <button id="closeWorksBtn" class="contact-close" aria-label="Cerrar">✕</button>
+      <h2 id="worksTitle">Trabajos realizados</h2>
+
+      <div class="upload-area" id="uploadArea">
+        <p>Arrastra tus archivos aquí o <button class="linklike" id="browseBtn" type="button">selecciona archivos</button></p>
+        <input id="fileInputWorks" type="file" multiple style="display:none;" />
+        <div id="uploadQueue" class="upload-queue" aria-live="polite"></div>
+      </div>
+
+      <div class="gallery-panel">
+        <button id="galleryPrevBtn" class="gallery-nav-btn gallery-nav-left" aria-label="Anterior" title="Anterior">‹</button>
+        <div id="worksGallery" class="works-gallery">
+          <p class="muted">No hay trabajos aún. Sube archivos para mostrarlos aquí.</p>
+        </div>
+        <button id="galleryNextBtn" class="gallery-nav-btn gallery-nav-right" aria-label="Siguiente" title="Siguiente">›</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- (El recuadro 'Redes' duplicado fue eliminado; permanece el que está junto a 'Quién soy') -->
+
+  <!-- Lightbox overlay -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <div class="lightbox-inner">
+      <button id="lightboxClose" class="lightbox-close" aria-label="Cerrar">✕</button>
+      <button id="lightboxPrev" class="lightbox-prev" aria-label="Anterior">❮</button>
+      <img id="lightboxImg" class="lightbox-img" src="" alt="" />
+      <button id="lightboxNext" class="lightbox-next" aria-label="Siguiente">❯</button>
+    </div>
+    <div id="lightboxCaption" class="lightbox-caption" aria-live="polite"></div>
+  </div>
+  <script>
+            // Lightbox funcional para galería
+            document.addEventListener('DOMContentLoaded', function() {
+              var galleryThumbs = document.querySelectorAll('.gallery-img-thumb');
+              var lightbox = document.getElementById('galleryLightbox');
+              var lightboxImg = document.getElementById('galleryLightboxImg');
+              var lightboxCaption = document.getElementById('galleryLightboxCaption');
+              var closeBtn = document.getElementById('galleryLightboxClose');
+              var prevBtn = document.getElementById('galleryLightboxPrev');
+              var nextBtn = document.getElementById('galleryLightboxNext');
+              var images = [
+                {src:'assets/galery.jpg', alt:'Trabajo 1'},
+                {src:'assets/galery2.png', alt:'Trabajo 2'},
+                {src:'assets/galery3.png', alt:'Trabajo 3'},
+                {src:'assets/galery4.jpg', alt:'Trabajo 4'},
+                {src:'assets/galery5.png', alt:'Trabajo 5'}
+              ];
+              var current = 0;
+              function showLightbox(idx) {
+                current = idx;
+                lightboxImg.src = images[idx].src;
+                lightboxImg.alt = images[idx].alt;
+                lightboxCaption.textContent = images[idx].alt;
+                lightbox.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+              }
+              function hideLightbox() {
+                lightbox.style.display = 'none';
+                document.body.style.overflow = '';
+              }
+              function showPrev() {
+                showLightbox((current + images.length - 1) % images.length);
+              }
+              function showNext() {
+                showLightbox((current + 1) % images.length);
+              }
+              galleryThumbs.forEach(function(img) {
+                img.addEventListener('click', function() {
+                  showLightbox(Number(img.dataset.index));
+                });
+              });
+              closeBtn.addEventListener('click', hideLightbox);
+              prevBtn.addEventListener('click', showPrev);
+              nextBtn.addEventListener('click', showNext);
+              lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox) hideLightbox();
+              });
+              document.addEventListener('keydown', function(e) {
+                if (lightbox.style.display === 'flex') {
+                  if (e.key === 'Escape') hideLightbox();
+                  if (e.key === 'ArrowLeft') showPrev();
+                  if (e.key === 'ArrowRight') showNext();
+                }
+              });
+            });
+        // Modal galería funcional con preview tipo logo
+        document.addEventListener('DOMContentLoaded', function() {
+          var galleryPreview = document.getElementById('galleryPreview');
+          var galleryModal = document.getElementById('galleryModal');
+          var closeGalleryModalBtn = document.getElementById('closeGalleryModalBtn');
+          if(galleryPreview && galleryModal && closeGalleryModalBtn) {
+            galleryPreview.addEventListener('click', function() {
+              galleryModal.classList.add('open');
+              galleryModal.setAttribute('aria-hidden', 'false');
+              document.body.style.overflow = 'hidden';
+            });
+            galleryPreview.addEventListener('keydown', function(e){
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                galleryModal.classList.add('open');
+                galleryModal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+              }
+            });
+            closeGalleryModalBtn.addEventListener('click', function() {
+              galleryModal.classList.remove('open');
+              galleryModal.setAttribute('aria-hidden', 'true');
+              document.body.style.overflow = '';
+            });
+            galleryModal.addEventListener('click', function(e) {
+              if (e.target === galleryModal) {
+                galleryModal.classList.remove('open');
+                galleryModal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+              }
+            });
+            document.addEventListener('keydown', function(e) {
+              if (e.key === 'Escape' && galleryModal.classList.contains('open')) {
+                galleryModal.classList.remove('open');
+                galleryModal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+              }
+            });
+          }
+        });
+    // Intento de cargar primero la imagen desde assets/logo.jpeg.
+    // Si falla, dejamos el contenido embebido actual como fallback.
+    document.addEventListener('DOMContentLoaded', function() {
+      var logoImg = document.querySelector('.logo img');
+      if (!logoImg) return;
+      // Asignar un id por si acaso
+      logoImg.id = logoImg.id || 'mainLogo';
+      // Intentar cargar el archivo físico primero
+      logoImg.src = 'assets/logo.jpeg';
+      logoImg.onerror = function() {
+        this.onerror = null;
+        // Fallback: pequeño SVG inline para asegurar que se vea algo
+        this.src = 'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22100%22><rect width=%22200%22 height=%22100%22 fill=%22%230b3d91%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2216%22 fill=%22white%22>Logo</text></svg>';
+      };
+      // Ensure profile preview logo has same fallback
+      var profileLogo = document.querySelector('.profile-logo');
+      if (profileLogo){
+        profileLogo.onerror = function(){ this.onerror = null; this.src = 'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22><rect width=%22120%22 height=%22120%22 fill=%22%230b3d91%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2212%22 fill=%22white%22>SDMaker</text></svg>'; };
+        // prefer asset if not already set (img src is in markup but ensure same behavior)
+        if (!profileLogo.src || profileLogo.src.indexOf('data:') === 0) profileLogo.src = 'assets/logo.jpeg';
+      }
+
+      // Social preview image fallback: intenta cargar asset y si falla usa la imagen local 'logo_redes.png' o un SVG embebido
+      var socialIcon = document.querySelector('.social-preview .social-icon');
+      if (socialIcon){
+        socialIcon.onerror = function(){ this.onerror = null; this.src = 'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 448 512%22 width=%2256%22 height=%2256%22><linearGradient id=%22g%22 x1=%220%25%22 x2=%22100%25%22 y1=%220%25%22 y2=%22100%25%22><stop offset=%220%25%22 stop-color=%22%236ab04a%22/><stop offset=%2250%25%22 stop-color=%22%234cc3a1%22/><stop offset=%22100%25%22 stop-color=%22%233aa6d8%22/></linearGradient><rect width=%22448%22 height=%22512%22 rx=%2280%22 fill=%22url(%23g)%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2216%22 fill=%22white%22>Redes</text></svg>'; };
+        if (!socialIcon.src || socialIcon.src.indexOf('data:') === 0) socialIcon.src = 'assets/logo_redes.png';
+      }
+
+        // --- Panel de contacto: abrir / cerrar ---
+        var openBtn = document.getElementById('openContactBtn');
+        var contactPanel = document.getElementById('contactPanel');
+        var closeBtn = document.getElementById('closeContactBtn');
+
+        function showContact() {
+          contactPanel.classList.add('open');
+          contactPanel.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+          // focus en primer elemento del modal
+          closeBtn && closeBtn.focus();
+        }
+
+        function hideContact() {
+          contactPanel.classList.remove('open');
+          contactPanel.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+          openBtn && openBtn.focus();
+        }
+
+        openBtn && openBtn.addEventListener('click', function(){ showContact(); });
+        closeBtn && closeBtn.addEventListener('click', function(){ hideContact(); });
+        // Cerrar al hacer click fuera del panel interno
+        contactPanel && contactPanel.addEventListener('click', function(e){ if (e.target === contactPanel) hideContact(); });
+        // Cerrar con Escape
+        document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && contactPanel.classList.contains('open')) hideContact(); });
+
+      // --- Perfil: preview -> modal (abierto en el centro) ---
+      var profilePreview = document.getElementById('profilePreview');
+      var profileModal = document.getElementById('profileModal');
+      var closeProfileModalBtn = document.getElementById('closeProfileModalBtn');
+
+      function showProfileModal(){
+        profileModal.classList.add('open'); profileModal.setAttribute('aria-hidden','false'); document.body.style.overflow = 'hidden';
+        closeProfileModalBtn && closeProfileModalBtn.focus();
+      }
+      function hideProfileModal(){
+        profileModal.classList.remove('open'); profileModal.setAttribute('aria-hidden','true'); document.body.style.overflow = '';
+        profilePreview && profilePreview.focus();
+      }
+
+      profilePreview && profilePreview.addEventListener('click', showProfileModal);
+      profilePreview && profilePreview.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showProfileModal(); } });
+      closeProfileModalBtn && closeProfileModalBtn.addEventListener('click', hideProfileModal);
+      profileModal && profileModal.addEventListener('click', function(e){ if (e.target === profileModal) hideProfileModal(); });
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && profileModal.classList.contains('open')) hideProfileModal(); });
+
+
+      // --- Social modal: solo abrir/cerrar modal de redes ---
+      var socialPreview = document.getElementById('socialPreview');
+      var socialModal = document.getElementById('socialModal');
+      var closeSocialModalBtn = document.getElementById('closeSocialModalBtn');
+
+      function showSocialModal(){
+        socialModal.classList.add('open');
+        socialModal.setAttribute('aria-hidden','false');
+        document.body.style.overflow='hidden';
+        closeSocialModalBtn && closeSocialModalBtn.focus();
+      }
+
+      function hideSocialModal(){
+        socialModal.classList.remove('open');
+        socialModal.setAttribute('aria-hidden','true');
+        document.body.style.overflow='';
+        socialPreview && socialPreview.focus();
+      }
+
+      socialPreview && socialPreview.addEventListener('click', showSocialModal);
+      socialPreview && socialPreview.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showSocialModal(); } });
+      closeSocialModalBtn && closeSocialModalBtn.addEventListener('click', hideSocialModal);
+      socialModal && socialModal.addEventListener('click', function(e){ if (e.target === socialModal) hideSocialModal(); });
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && socialModal.classList.contains('open')) hideSocialModal(); });
+
+      // --- Auth: admin / guest handling ---
+      var openAuthBtn = document.getElementById('openAuthBtn');
+      var userMenu = document.getElementById('userMenu');
+      var authStatus = document.getElementById('authStatus');
+      var googleClientIdInput = document.getElementById('googleClientId');
+      var gsiButtonContainer = document.getElementById('gsiButtonContainer');
+      // simplified login inputs
+      var loginEmail = document.getElementById('loginEmail');
+      var loginPassword = document.getElementById('loginPassword');
+      var loginBtn = document.getElementById('loginBtn');
+      // admin setup
+      var adminEmailSetup = document.getElementById('adminEmailSetup');
+      var adminPassSetup = document.getElementById('adminPassSetup');
+      var saveAdminSetupBtn = document.getElementById('saveAdminSetupBtn');
+      var saveGoogleClientIdBtn = document.getElementById('saveGoogleClientIdBtn');
+      var logoutBtn = document.getElementById('logoutBtn');
+      var authMsg = document.getElementById('authMsg');
+
+      function getSessionUser(){ try{ return JSON.parse(sessionStorage.getItem('user')||'null'); }catch(e){return null;} }
+      function setSessionUser(u){ if (!u) sessionStorage.removeItem('user'); else sessionStorage.setItem('user', JSON.stringify(u)); updateAuthUI(); }
+      function isAdmin(){ var u = getSessionUser(); if (!u || !u.email) return false; var admin = (localStorage.getItem('admin_email')||'').toLowerCase(); return admin && admin === u.email.toLowerCase(); }
+
+      function updateAuthUI(){ var u = getSessionUser(); if (u && u.email){ authStatus.textContent = u.email; } else { authStatus.textContent = 'Invitado'; }
+        // Show/hide upload area
+        var uploadArea = document.getElementById('uploadArea'); if (uploadArea) uploadArea.style.display = isAdmin() ? 'block' : 'none';
+        // update social modal save button visibility
+        var saveBtn = document.getElementById('saveSocialBtn'); if (saveBtn) saveBtn.style.display = isAdmin() ? 'inline-block' : 'none';
+        // re-render gallery to show/hide edit/delete if needed
+        renderWorksGallery();
+      }
+
+      // password utilities
+      async function sha256hex(str){ const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)); return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join(''); }
+
+      // login (local) using simplified fields
+      loginBtn && loginBtn.addEventListener('click', async function(){ var email = (loginEmail.value||'').trim().toLowerCase(); var pw = loginPassword.value||''; if (!email || !pw){ alert('Introduce email y contraseña'); return; } var storedHash = localStorage.getItem('admin_password_hash'); var storedAdmin = (localStorage.getItem('admin_email')||'').toLowerCase(); if (!storedHash || !storedAdmin){ alert('No hay cuenta admin configurada. Usa "Configurar cuenta de administrador" para definir email y contraseña.'); return; } var h = await sha256hex(pw); if (h === storedHash && email === storedAdmin){ setSessionUser({ email: email, method:'local' }); authMsg.style.display='block'; setTimeout(function(){ authMsg.style.display='none'; },900); } else { alert('Email o contraseña incorrectos'); } });
+
+      // admin setup (email + password) — visible password
+      saveAdminSetupBtn && saveAdminSetupBtn.addEventListener('click', async function(){ var email = (adminEmailSetup.value||'').trim().toLowerCase(); var pw = adminPassSetup.value||''; if (!email || !pw){ alert('Introduce email y contraseña para admin'); return; } var h = await sha256hex(pw); localStorage.setItem('admin_email', email); localStorage.setItem('admin_password_hash', h); authMsg.style.display='block'; setTimeout(function(){ authMsg.style.display='none'; },1000); updateAuthUI(); });
+
+        // toggle user menu (dropdown)
+        openAuthBtn && openAuthBtn.addEventListener('click', function(e){ if (!userMenu) return; var expanded = openAuthBtn.getAttribute('aria-expanded') === 'true'; if (expanded){ userMenu.hidden = true; userMenu.setAttribute('aria-hidden','true'); openAuthBtn.setAttribute('aria-expanded','false'); } else { userMenu.hidden = false; userMenu.setAttribute('aria-hidden','false'); openAuthBtn.setAttribute('aria-expanded','true'); // focus and init
+          tryInitGoogle(); loginEmail && loginEmail.focus(); adminEmailSetup && (adminEmailSetup.value = localStorage.getItem('admin_email')||''); var cur = localStorage.getItem('google_client_id')||''; googleClientIdInput.value = cur; } e.stopPropagation(); });
+
+        // close menu on outside click or ESC
+        document.addEventListener('click', function(e){ if (!userMenu || userMenu.hidden) return; if (openAuthBtn && (openAuthBtn === e.target || openAuthBtn.contains(e.target))) return; if (userMenu.contains(e.target)) return; userMenu.hidden = true; userMenu.setAttribute('aria-hidden','true'); openAuthBtn.setAttribute('aria-expanded','false'); });
+        document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && userMenu && !userMenu.hidden){ userMenu.hidden = true; userMenu.setAttribute('aria-hidden','true'); openAuthBtn.setAttribute('aria-expanded','false'); openAuthBtn && openAuthBtn.focus(); } });
+
+      logoutBtn && logoutBtn.addEventListener('click', function(){ setSessionUser(null); authMsg.style.display='block'; setTimeout(function(){ authMsg.style.display='none'; },900); if (userMenu){ userMenu.hidden = true; openAuthBtn && openAuthBtn.setAttribute('aria-expanded','false'); } });
+
+      // Google Identity Services init
+      function tryInitGoogle(){ var id = (localStorage.getItem('google_client_id')|| (googleClientIdInput && googleClientIdInput.value) || '').trim(); if (!id) { gsiButtonContainer.innerHTML = '<div class="muted">Pega el Google Client ID en configuración para habilitar inicio con Google.</div>'; return; } localStorage.setItem('google_client_id', id); // save
+        // load script if not present
+        if (!window.google || !window.google.accounts || !window.google.accounts.id){ var s = document.createElement('script'); s.src='https://accounts.google.com/gsi/client'; s.async=true; s.defer=true; s.onload = function(){ initGSI(id); }; document.head.appendChild(s); } else { initGSI(id); }
+      }
+
+      // EmailJS and OTP flow removed: only Google Client ID login and local admin remain
+
+      function initGSI(clientId){ try{ window.google.accounts.id.initialize({ client_id: clientId, callback: handleCredentialResponse }); gsiButtonContainer.innerHTML = ''; window.google.accounts.id.renderButton(gsiButtonContainer, { theme: 'outline', size: 'large' }); }catch(e){ gsiButtonContainer.innerHTML = '<div class="muted">Error al inicializar Google Sign-In.</div>'; } }
+
+      function parseJwtPayload(token){ try{ var p = token.split('.')[1]; p = p.replace(/-/g,'+').replace(/_/g,'/'); var json = decodeURIComponent(atob(p).split('').map(function(c){ return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2); }).join('')); return JSON.parse(json); }catch(e){return null;} }
+
+      function handleCredentialResponse(resp){ var payload = parseJwtPayload(resp.credential); if (!payload || !payload.email){ alert('No se obtuvo email desde Google.'); return; } setSessionUser({ email: payload.email, method:'google' }); authMsg.style.display='block'; setTimeout(function(){ authMsg.style.display='none'; },900); }
+
+      // save google client id explicit
+      saveGoogleClientIdBtn && saveGoogleClientIdBtn.addEventListener('click', function(){ var v = (googleClientIdInput.value||'').trim(); if (!v) { alert('Introduce un Google Client ID válido'); return; } localStorage.setItem('google_client_id', v); tryInitGoogle(); authMsg.style.display='block'; setTimeout(function(){ authMsg.style.display='none'; },800); });
+
+      // initial auth state
+      updateAuthUI();
+
+      // --- Ensure admin defaults (set by user) ---
+      (function ensureAdminDefaults(){
+        try{
+          if (!localStorage.getItem('admin_email')){
+            localStorage.setItem('admin_email','sm172607q@gmail.com');
+          }
+          if (!localStorage.getItem('admin_password_hash')){
+            // compute hash of provided password and store it
+            sha256hex('toroncho21').then(function(h){ localStorage.setItem('admin_password_hash', h); });
+          }
+        }catch(e){}
+      })();
+
+      // render footer social links on load
+      (function renderFooterSocial(){
+        var container = document.createElement('div'); container.id = 'footerSocialLinks'; container.style.marginTop = '10px';
+        var links = loadSocialLinks();
+        if (links.instagram){ var a = document.createElement('a'); a.href = links.instagram; a.target = '_blank'; a.rel='noopener noreferrer'; a.textContent = 'Instagram'; a.className='linklike'; container.appendChild(a); }
+        if (links.facebook){ var a2 = document.createElement('a'); a2.href = links.facebook; a2.target = '_blank'; a2.rel='noopener noreferrer'; a2.textContent = 'Facebook'; a2.className='linklike'; a2.style.marginLeft='8px'; container.appendChild(a2); }
+        var footer = document.querySelector('.footer'); if (footer) footer.appendChild(container);
+      })();
+
+      // --- Trabajos realizados: upload + IndexedDB gallery ---
+      var openWorksBtn = document.getElementById('openWorksBtn');
+      var worksPanel = document.getElementById('worksPanel');
+      var closeWorksBtn = document.getElementById('closeWorksBtn');
+      var fileInput = document.getElementById('fileInputWorks');
+      var uploadArea = document.getElementById('uploadArea');
+      var browseBtn = document.getElementById('browseBtn');
+      var worksGallery = document.getElementById('worksGallery');
+      var portfolioGallery = document.getElementById('portfolioGallery');
+      var uploadQueue = document.getElementById('uploadQueue');
+      var pendingUploads = [];
+
+      function openWorks(){
+        worksPanel.classList.add('open');
+        worksPanel.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+        closeWorksBtn && closeWorksBtn.focus();
+        renderWorksGallery();
+      }
+      openWorksBtn && openWorksBtn.addEventListener('click', openWorks);
+      closeWorksBtn && closeWorksBtn.addEventListener('click', function(){
+        worksPanel.classList.remove('open');
+        worksPanel.setAttribute('aria-hidden','true');
+        document.body.style.overflow = '';
+        // devolver foco a la vista previa de la galería si existe
+        try{ var preview = document.getElementById('portfolioGallery') && document.getElementById('portfolioGallery').querySelector('.gallery-preview'); if (preview) preview.focus(); }catch(e){}
+      });
+      worksPanel && worksPanel.addEventListener('click', function(e){ if (e.target === worksPanel) { worksPanel.classList.remove('open'); worksPanel.setAttribute('aria-hidden','true'); document.body.style.overflow = ''; try{ var preview = document.getElementById('portfolioGallery') && document.getElementById('portfolioGallery').querySelector('.gallery-preview'); if (preview) preview.focus(); }catch(e){} } });
+
+      // IndexedDB helpers
+      function openDB(){
+        return new Promise(function(resolve,reject){
+          var req = indexedDB.open('works-db',1);
+          req.onupgradeneeded = function(e){ var db = e.target.result; if (!db.objectStoreNames.contains('files')) db.createObjectStore('files',{keyPath:'id',autoIncrement:true}); };
+          req.onsuccess = function(e){ resolve(e.target.result); };
+          req.onerror = function(e){ reject(e.target.error); };
+        });
+      }
+
+      function addFileToDB(file, description){
+        return openDB().then(function(db){
+          return new Promise(function(resolve,reject){
+            var tx = db.transaction('files','readwrite');
+            var store = tx.objectStore('files');
+            var entry = { name: file.name, type: file.type, blob: file, date: Date.now(), description: description || '' };
+            var r = store.add(entry);
+            r.onsuccess = function(){ resolve(); };
+            r.onerror = function(e){ reject(e.target.error); };
+          });
+        });
+      }
+
+      function updateFileInDB(id, updates){
+        return openDB().then(function(db){
+          return new Promise(function(resolve,reject){
+            var tx = db.transaction('files','readwrite');
+            var store = tx.objectStore('files');
+            var req = store.get(id);
+            req.onsuccess = function(){
+              var rec = req.result;
+              if (!rec) return resolve();
+              Object.assign(rec, updates);
+              var r2 = store.put(rec);
+              r2.onsuccess = function(){ resolve(); };
+              r2.onerror = function(e){ reject(e.target.error); };
+            };
+            req.onerror = function(e){ reject(e.target.error); };
+          });
+        });
+      }
+
+      function getAllFilesFromDB(){
+        return openDB().then(function(db){
+          return new Promise(function(resolve,reject){
+            var tx = db.transaction('files','readonly');
+            var store = tx.objectStore('files');
+            var r = store.getAll();
+            r.onsuccess = function(){ resolve(r.result); };
+            r.onerror = function(e){ reject(e.target.error); };
+          });
+        });
+      }
+
+      function deleteFileFromDB(id){
+        return openDB().then(function(db){
+          return new Promise(function(resolve,reject){
+            var tx = db.transaction('files','readwrite');
+            var store = tx.objectStore('files');
+            var r = store.delete(id);
+            r.onsuccess = function(){ resolve(); };
+            r.onerror = function(e){ reject(e.target.error); };
+          });
+        });
+      }
+
+      function createWorkCard(it, index){
+        var card = document.createElement('div'); card.className = 'work-item';
+        var url = URL.createObjectURL(it.blob);
+        if (it.type && it.type.startsWith('image/')){
+          var img = document.createElement('img'); img.src = url; img.alt = it.name; img.className = 'work-thumb'; card.appendChild(img);
+          img.dataset.index = index;
+          img.addEventListener('click', function(){ showLightbox(index); });
+        } else {
+          var icon = document.createElement('div'); icon.className = 'work-file'; icon.textContent = it.name; card.appendChild(icon);
+        }
+        var meta = document.createElement('div'); meta.className = 'work-meta';
+        var nameEl = document.createElement('div'); nameEl.className = 'work-name'; nameEl.textContent = it.name; meta.appendChild(nameEl);
+        var descEl = document.createElement('div'); descEl.className = 'work-desc'; descEl.textContent = it.description || ''; meta.appendChild(descEl);
+        var actions = document.createElement('div'); actions.className = 'work-actions';
+        var view = document.createElement('a'); view.href = url; view.target = '_blank'; view.textContent = 'Ver'; view.className = 'linklike'; actions.appendChild(view);
+        var dl = document.createElement('a'); dl.href = url; dl.download = it.name; dl.textContent = 'Descargar'; dl.className = 'linklike'; dl.style.marginLeft = '10px'; actions.appendChild(dl);
+        var del = document.createElement('button'); del.textContent = 'Eliminar'; del.className = 'btn small danger'; del.style.marginLeft = '10px'; del.addEventListener('click', function(){ if (!isAdmin()){ alert('Solo el administrador puede eliminar trabajos.'); return; } deleteFileFromDB(it.id).then(function(){ renderWorksGallery(); }); });
+        actions.appendChild(del);
+        var edit = document.createElement('button'); edit.textContent = 'Editar'; edit.className = 'btn small'; edit.style.marginLeft = '8px';
+        edit.addEventListener('click', function(){
+          // Toggle inline edit for description
+          if (!isAdmin()){ alert('Solo el administrador puede editar descripciones.'); return; }
+          if (edit._editing){
+            // save
+            var input = card.querySelector('.work-desc-input');
+            var newDesc = input ? input.value : '';
+            updateFileInDB(it.id, { description: newDesc }).then(function(){ renderWorksGallery(); });
+            edit._editing = false; edit.textContent = 'Editar';
+          } else {
+            var input = document.createElement('input'); input.type = 'text'; input.className = 'work-desc-input'; input.value = it.description || '';
+            descEl.style.display = 'none'; descEl.parentNode.insertBefore(input, descEl);
+            input.focus(); edit._editing = true; edit.textContent = 'Guardar';
+          }
+        });
+        actions.appendChild(edit);
+        // Hide actions if not admin (guest can only view)
+        if (!isAdmin()){ edit.style.display='none'; del.style.display='none'; }
+        meta.appendChild(actions);
+        card.appendChild(meta);
+        return card;
+      }
+
+      var galleryItems = [];
+      function renderWorksGallery(){
+        getAllFilesFromDB().then(function(items){
+          galleryItems = items || [];
+          // Clear both targets
+          if (worksGallery) worksGallery.innerHTML = '';
+          if (portfolioGallery) portfolioGallery.innerHTML = '';
+          if (!galleryItems || galleryItems.length === 0){
+            var msg = '<p class="muted">No hay trabajos aún. Sube archivos para mostrarlos aquí.</p>';
+            if (worksGallery) worksGallery.innerHTML = msg;
+            if (portfolioGallery) portfolioGallery.innerHTML = msg;
+            return;
+          }
+              // keep items in upload order (oldest -> newest) so gallery is predictable
+              galleryItems.sort(function(a,b){ return (a.date||0) - (b.date||0); });
+              var grid1 = document.createElement('div'); grid1.className = 'works-grid horizontal-2';
+              galleryItems.forEach(function(it, idx){
+                grid1.appendChild(createWorkCard(it, idx));
+              });
+          if (worksGallery) worksGallery.appendChild(grid1);
+              // attach scroll listener to newly created scroller
+              try { grid1.addEventListener('scroll', updateGalleryNav); } catch(e){}
+
+          // Portfolio preview: show a single clickable square that opens the gallery
+          if (portfolioGallery) {
+            portfolioGallery.innerHTML = '';
+            var preview = document.createElement('div'); preview.className = 'gallery-preview';
+            // pick first image as cover or fallback to first item
+            var coverItem = galleryItems.find(function(i){ return i.type && i.type.startsWith('image/'); }) || galleryItems[0];
+              if (coverItem) {
+                var urlCover = URL.createObjectURL(coverItem.blob);
+                preview.style.backgroundImage = 'url("' + urlCover + '")';
+                // revoke when image loads to free memory
+                var tmp = new Image(); tmp.onload = function(){ URL.revokeObjectURL(urlCover); }; tmp.src = urlCover;
+              }
+              var overlay = document.createElement('div'); overlay.className = 'preview-overlay'; overlay.textContent = 'Ver Galería';
+              overlay.title = galleryItems.length + ' trabajos';
+              preview.setAttribute('aria-label','Abrir galería con ' + galleryItems.length + ' trabajos');
+            preview.appendChild(overlay);
+            preview.tabIndex = 0;
+            preview.addEventListener('click', function(){ openWorks(); });
+            preview.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openWorks(); } });
+            portfolioGallery.appendChild(preview);
+          }
+        });
+        // Ensure gallery nav buttons exist and wire them up
+        var galleryPrevBtn = document.getElementById('galleryPrevBtn');
+        var galleryNextBtn = document.getElementById('galleryNextBtn');
+        function updateGalleryNav(){
+          var sc = worksGallery && worksGallery.querySelector('.works-grid.horizontal-2');
+          if (!sc) { if (galleryPrevBtn) galleryPrevBtn.disabled = true; if (galleryNextBtn) galleryNextBtn.disabled = true; return; }
+          if (galleryPrevBtn) galleryPrevBtn.disabled = sc.scrollLeft <= 0;
+          if (galleryNextBtn) galleryNextBtn.disabled = sc.scrollLeft + sc.clientWidth >= sc.scrollWidth - 1;
+        }
+        function scrollGalleryByPage(dir){
+          var sc = worksGallery && worksGallery.querySelector('.works-grid.horizontal-2');
+          if (!sc) return;
+          var page = sc.clientWidth; // approx two items width (shows 2 per view)
+          sc.scrollTo({ left: sc.scrollLeft + (dir * page), behavior: 'smooth' });
+          setTimeout(updateGalleryNav, 350);
+        }
+        // replace handlers (avoid duplicate listeners)
+        if (galleryPrevBtn) galleryPrevBtn.onclick = function(){ scrollGalleryByPage(-1); };
+        if (galleryNextBtn) galleryNextBtn.onclick = function(){ scrollGalleryByPage(1); };
+        updateGalleryNav();
+        // Keyboard navigation while worksPanel is open (single handler)
+        if (!window._worksKeyHandler){
+          window._worksKeyHandler = function(e){ if (worksPanel && worksPanel.classList.contains('open')){ if (e.key === 'ArrowLeft'){ scrollGalleryByPage(-1);} if (e.key === 'ArrowRight'){ scrollGalleryByPage(1);} } };
+          document.addEventListener('keydown', window._worksKeyHandler);
+        }
+      }
+
+      // Upload queue rendering and handling
+      function renderUploadQueue(){
+        if (!uploadQueue) return;
+        uploadQueue.innerHTML = '';
+        if (!pendingUploads || pendingUploads.length === 0){
+          uploadQueue.innerHTML = '<p class="muted">No hay archivos en cola.</p>';
+          return;
+        }
+        var list = document.createElement('div'); list.className = 'upload-list';
+        pendingUploads.forEach(function(item, idx){
+          var row = document.createElement('div'); row.className = 'upload-row';
+          var info = document.createElement('div'); info.className = 'upload-info'; info.textContent = item.file.name; row.appendChild(info);
+          var desc = document.createElement('input'); desc.type = 'text'; desc.placeholder = 'Descripción (opcional)'; desc.className = 'upload-desc'; desc.value = item.description || '';
+          desc.addEventListener('input', function(e){ pendingUploads[idx].description = e.target.value; });
+          row.appendChild(desc);
+          var btnUpload = document.createElement('button'); btnUpload.className = 'btn small'; btnUpload.textContent = 'Subir'; btnUpload.addEventListener('click', function(){ addFileToDB(item.file, item.description).then(function(){ pendingUploads.splice(idx,1); renderUploadQueue(); renderWorksGallery(); }); });
+          row.appendChild(btnUpload);
+          var btnRemove = document.createElement('button'); btnRemove.className = 'btn small danger'; btnRemove.style.marginLeft = '8px'; btnRemove.textContent = 'Remover'; btnRemove.addEventListener('click', function(){ pendingUploads.splice(idx,1); renderUploadQueue(); });
+          row.appendChild(btnRemove);
+          list.appendChild(row);
+        });
+        var uploadAll = document.createElement('button'); uploadAll.className = 'btn'; uploadAll.textContent = 'Subir todos'; uploadAll.addEventListener('click', function(){ Promise.all(pendingUploads.map(function(it){ return addFileToDB(it.file, it.description); })).then(function(){ pendingUploads = []; renderUploadQueue(); renderWorksGallery(); }); });
+        uploadQueue.appendChild(list);
+        uploadQueue.appendChild(uploadAll);
+      }
+
+      // Lightbox functions
+      var lightbox = null;
+      var lightboxImg = null;
+      var lightboxCaption = null;
+      var currentLightboxIndex = -1;
+      var lightboxInitialized = false;
+      function ensureLightboxElements(){
+        if (lightboxInitialized) return;
+        lightbox = document.getElementById('lightbox');
+        lightboxImg = document.getElementById('lightboxImg');
+        lightboxCaption = document.getElementById('lightboxCaption');
+        var prev = document.getElementById('lightboxPrev');
+        var next = document.getElementById('lightboxNext');
+        var close = document.getElementById('lightboxClose');
+        if (prev) prev.addEventListener('click', function(){ showLightbox((currentLightboxIndex-1+galleryItems.length)%galleryItems.length); });
+        if (next) next.addEventListener('click', function(){ showLightbox((currentLightboxIndex+1)%galleryItems.length); });
+        if (close) close.addEventListener('click', hideLightbox);
+        if (lightbox) { lightbox.addEventListener('click', function(e){ if (e.target === lightbox) hideLightbox(); }); }
+        document.addEventListener('keydown', function(e){ if (e.key === 'Escape') hideLightbox(); if (e.key === 'ArrowLeft') showLightbox((currentLightboxIndex-1+galleryItems.length)%galleryItems.length); if (e.key === 'ArrowRight') showLightbox((currentLightboxIndex+1)%galleryItems.length); });
+        lightboxInitialized = true;
+      }
+
+      function showLightbox(index){
+        if (!galleryItems || galleryItems.length === 0) return;
+        currentLightboxIndex = index;
+        ensureLightboxElements();
+        var item = galleryItems[index];
+        var url = URL.createObjectURL(item.blob);
+        lightboxImg.src = url;
+        lightboxCaption.textContent = item.name + (item.description ? (' — ' + item.description) : '');
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden','false');
+      }
+
+      function hideLightbox(){
+        if (!lightbox) return;
+        lightbox.classList.remove('open');
+        lightbox.setAttribute('aria-hidden','true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+
+      // File input / drag & drop
+      browseBtn && browseBtn.addEventListener('click', function(){ fileInput.click(); });
+      fileInput && fileInput.addEventListener('change', function(e){ var files = Array.from(e.target.files || []); files.forEach(function(f){ pendingUploads.push({ file: f, description: '' }); }); renderUploadQueue(); e.target.value = ''; });
+      uploadArea && uploadArea.addEventListener('dragover', function(e){ e.preventDefault(); uploadArea.classList.add('dragover'); });
+      uploadArea && uploadArea.addEventListener('dragleave', function(e){ uploadArea.classList.remove('dragover'); });
+      uploadArea && uploadArea.addEventListener('drop', function(e){ e.preventDefault(); uploadArea.classList.remove('dragover'); var files = Array.from(e.dataTransfer.files || []); files.forEach(function(f){ pendingUploads.push({ file: f, description: '' }); }); renderUploadQueue(); });
+      // Ensure gallery renders initially into Portafolio when page loads
+      renderWorksGallery();
+    });
+  </script>
+</body>
+</html>
