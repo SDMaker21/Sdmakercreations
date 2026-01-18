@@ -1,3 +1,10 @@
+/* Mostrar 'Quién soy' solo en móvil debajo de la galería */
+.profile-mobile { display: none; }
+.profile-desktop { display: flex !important; }
+@media (max-width: 700px) {
+  .profile-mobile { display: block !important; }
+  .profile-desktop { display: none !important; }
+}
 :root{
   --bg:#f6f7fb; 
   --card:#ffffff;

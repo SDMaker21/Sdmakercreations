@@ -5,6 +5,31 @@ sds<!doctype html>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Consulta diseños, logos y ediciones — 0416 3403334</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Mostrar ambos recuadros en móviles, ocultar en escritorio */
+    #profilePreviewMobile, #othersPreviewMobile {
+      display: none;
+    }
+    @media (max-width: 600px) {
+      .profile-others-row-mobile {
+        display: flex !important;
+        flex-direction: row;
+        width: 100vw;
+        gap: 0;
+        justify-content: center;
+        align-items: stretch;
+      }
+      #profilePreviewMobile, #othersPreviewMobile {
+        display: flex !important;
+        width: 50vw;
+        min-width: 110px;
+        max-width: 160px;
+        aspect-ratio: 1/1;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  </style>
 </head>
 <body>
   <main class="hero">
@@ -14,7 +39,7 @@ sds<!doctype html>
       </div>
       <h1>Consulta el tipo de diseños, logos y ediciones</h1>
       <p class="lead">Ofrecemos diseños, logos y ediciones personalizados.</p>
-      <div style="display:flex;gap:12px;align-items:center;margin-bottom:8px;">
+      <div style="display:flex; justify-content:center; gap:12px; align-items:center; margin-bottom:8px; width:100%;">
         <button class="btn" id="openContactBtn" type="button" title="Abrir contacto">Contáctanos</button>
       </div>
     </div>
@@ -80,53 +105,45 @@ sds<!doctype html>
             <div class="preview-overlay">Redes</div>
           </div>
         </section>
-        <section class="section-card" style="display:flex;align-items:center;justify-content:center;">
-          <div id="profilePreview" class="gallery-preview profile-preview" tabindex="0" aria-label="Quién soy">
-            <img src="assets/logo.jpeg" alt="SDMaker" class="profile-logo" />
-            <div class="preview-overlay">Quién soy</div>
+        <div style="display:flex;gap:18px;width:100%;justify-content:center;align-items:stretch;">
+          <section class="section-card profile-desktop" style="flex:1;display:flex;align-items:center;justify-content:center;min-width:180px;max-width:220px;">
+            <div id="profilePreview" class="gallery-preview profile-preview" tabindex="0" aria-label="Quién soy" style="width:100%;">
+              <img src="assets/logo.jpeg" alt="SDMaker" class="profile-logo" style="width:100%;height:100px;object-fit:cover;border-radius:10px;display:block;" />
+              <div class="preview-overlay">Quién soy</div>
+            </div>
+          </section>
+          <section class="section-card others-desktop" style="flex:1;display:flex;align-items:center;justify-content:center;min-width:180px;max-width:220px;">
+            <div id="othersPreview" class="gallery-preview others-preview" tabindex="0" aria-label="Otros sitios" style="width:100%;cursor:pointer;">
+              <img src="assets/delta.jpg" alt="Otros sitios" class="others-img" style="width:100%;height:100px;object-fit:cover;border-radius:10px;display:block;" />
+              <div class="preview-overlay">Otros sitios</div>
+            </div>
+          </section>
+        </div>
+        <!-- Modal Otros sitios -->
+        <div id="othersModal" class="contact-panel" aria-hidden="true" role="dialog" aria-labelledby="othersModalTitle">
+          <div class="contact-panel__inner" role="document">
+            <button id="closeOthersModalBtn" class="contact-close" aria-label="Cerrar">✕</button>
+            <h2 id="othersModalTitle">Otros sitios</h2>
+            <div id="othersImages" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;min-height:80px;">
+              <a href="https://delta-shop7.cms.webnode.page/" target="_blank" rel="noopener noreferrer" class="btn" style="width:100%;max-width:340px;text-align:center;background:#1ed760;font-weight:bold;font-size:1.1em;">Ir a Delta Sport</a>
+            </div>
           </div>
-        </section>
+        </div>
+      </div>
+      <!-- Quién soy solo visible en móviles como preview para abrir modal -->
+      <div class="profile-others-row-mobile" style="display:block;margin-top:18px;width:100%;">
+        <div style="display:flex;width:100%;gap:0;">
+          <div id="profilePreviewMobile" class="gallery-preview profile-preview" tabindex="0" aria-label="Quién soy" style="width:50vw;min-width:110px;max-width:160px;aspect-ratio:1/1;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff;border-radius:10px 0 0 10px;box-shadow:0 6px 18px rgba(2,6,23,.06);padding:0;vertical-align:top;">
+            <img src="assets/logo.jpeg" alt="SDMaker" class="profile-logo" style="width:100%;height:100%;border-radius:8px;object-fit:cover;margin-bottom:0;aspect-ratio:1/1;" />
+          </div>
+          <!-- Solo un recuadro de 'Otros sitios' -->
+        </div>
       </div>
     </div>
   </main>
 
   <!-- Footer eliminado para evitar duplicados -->
 
-  <!-- User dropdown menu (login & register) -->
-  <div id="userMenu" class="user-menu" hidden aria-hidden="true" role="menu">
-    <div class="user-menu-inner">
-      <h3 style="margin-top:0;margin-bottom:6px;">Acceso</h3>
-      <label for="loginEmail">Gmail</label>
-      <input id="loginEmail" type="email" placeholder="tu@ejemplo.com" />
-      <label for="loginPassword">Contraseña</label>
-      <input id="loginPassword" type="text" placeholder="Contraseña (visible)" />
-      <div style="display:flex;gap:8px;margin-top:8px;align-items:center;">
-        <button id="loginBtn" class="btn">Acceder</button>
-        <div id="gsiButtonContainer" style="margin-left:6px;"></div>
-      </div>
-      <details style="margin-top:12px;">
-        <summary style="cursor:pointer;">Registrar / Configurar admin</summary>
-        <p style="margin-top:8px;">Introduce el email y la contraseña que usarás como admin (la contraseña se guardará en hash en este navegador).</p>
-        <label for="adminEmailSetup">Email admin</label>
-        <input id="adminEmailSetup" type="email" placeholder="admin@ejemplo.com" />
-        <label for="adminPassSetup">Contraseña admin (visible)</label>
-        <input id="adminPassSetup" type="text" placeholder="Contraseña admin (visible)" />
-        <div style="display:flex;gap:8px;margin-top:8px;">
-          <button id="saveAdminSetupBtn" class="btn">Guardar credenciales admin</button>
-        </div>
-      </details>
-      <!-- EmailJS removed: only Google Client ID is supported now -->
-      <div style="margin-top:12px;display:flex;gap:8px;align-items:center;">
-        <label for="googleClientId" style="margin:0;">Google Client ID (opcional)</label>
-        <input id="googleClientId" type="text" placeholder="G...apps.googleusercontent.com" style="flex:1;" />
-        <button id="saveGoogleClientIdBtn" class="btn">Guardar</button>
-      </div>
-      <div style="margin-top:12px;display:flex;gap:8px;align-items:center;justify-content:flex-end;">
-        <button id="logoutBtn" class="btn secondary">Cerrar sesión</button>
-      </div>
-      <div id="authMsg" style="margin-top:10px;color:#9fe6a0;display:none;">Listo</div>
-    </div>
-  </div>
   <!-- Social modal (input & save links) -->
   <div id="socialModal" class="contact-panel" aria-hidden="true" role="dialog" aria-labelledby="socialModalTitle">
     <div class="contact-panel__inner" role="document">
@@ -192,6 +209,82 @@ sds<!doctype html>
     <div id="lightboxCaption" class="lightbox-caption" aria-live="polite"></div>
   </div>
   <script>
+                        // Abrir modal de "Otros sitios" desde el preview móvil
+                        document.addEventListener('DOMContentLoaded', function() {
+                          var othersPreviewMobile = document.getElementById('othersPreviewMobile');
+                          var othersModal = document.getElementById('othersModal');
+                          var closeOthersModalBtn = document.getElementById('closeOthersModalBtn');
+                          if (othersPreviewMobile && othersModal) {
+                            othersPreviewMobile.addEventListener('click', function() {
+                              othersModal.classList.add('open');
+                              othersModal.setAttribute('aria-hidden', 'false');
+                              document.body.style.overflow = 'hidden';
+                              closeOthersModalBtn && closeOthersModalBtn.focus();
+                            });
+                            othersPreviewMobile.addEventListener('keydown', function(e) {
+                              if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                othersModal.classList.add('open');
+                                othersModal.setAttribute('aria-hidden', 'false');
+                                document.body.style.overflow = 'hidden';
+                                closeOthersModalBtn && closeOthersModalBtn.focus();
+                              }
+                            });
+                          }
+                        });
+                    // Abrir modal de "Otros sitios" desde el preview en PC
+                    document.addEventListener('DOMContentLoaded', function() {
+                      var othersPreview = document.getElementById('othersPreview');
+                      var othersModal = document.getElementById('othersModal');
+                      var closeOthersModalBtn = document.getElementById('closeOthersModalBtn');
+                      if (othersPreview && othersModal) {
+                        othersPreview.addEventListener('click', function() {
+                          othersModal.classList.add('open');
+                          othersModal.setAttribute('aria-hidden', 'false');
+                          document.body.style.overflow = 'hidden';
+                          closeOthersModalBtn && closeOthersModalBtn.focus();
+                        });
+                        othersPreview.addEventListener('keydown', function(e) {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            othersModal.classList.add('open');
+                            othersModal.setAttribute('aria-hidden', 'false');
+                            document.body.style.overflow = 'hidden';
+                            closeOthersModalBtn && closeOthersModalBtn.focus();
+                          }
+                        });
+                      }
+                      if (closeOthersModalBtn && othersModal) {
+                        closeOthersModalBtn.addEventListener('click', function() {
+                          othersModal.classList.remove('open');
+                          othersModal.setAttribute('aria-hidden', 'true');
+                          document.body.style.overflow = '';
+                        });
+                      }
+                    });
+                // Mostrar modal de "Quién soy" desde el recuadro móvil
+                document.addEventListener('DOMContentLoaded', function() {
+                  var profilePreviewMobile = document.getElementById('profilePreviewMobile');
+                  var profileModal = document.getElementById('profileModal');
+                  var closeProfileModalBtn = document.getElementById('closeProfileModalBtn');
+                  if (profilePreviewMobile && profileModal) {
+                    profilePreviewMobile.addEventListener('click', function() {
+                      profileModal.classList.add('open');
+                      profileModal.setAttribute('aria-hidden', 'false');
+                      document.body.style.overflow = 'hidden';
+                      closeProfileModalBtn && closeProfileModalBtn.focus();
+                    });
+                    profilePreviewMobile.addEventListener('keydown', function(e) {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        profileModal.classList.add('open');
+                        profileModal.setAttribute('aria-hidden', 'false');
+                        document.body.style.overflow = 'hidden';
+                        closeProfileModalBtn && closeProfileModalBtn.focus();
+                      }
+                    });
+                  }
+                });
             // Lightbox funcional para galería
             document.addEventListener('DOMContentLoaded', function() {
               var galleryThumbs = document.querySelectorAll('.gallery-img-thumb');
@@ -388,88 +481,6 @@ sds<!doctype html>
       socialModal && socialModal.addEventListener('click', function(e){ if (e.target === socialModal) hideSocialModal(); });
       document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && socialModal.classList.contains('open')) hideSocialModal(); });
 
-      // --- Auth: admin / guest handling ---
-      var openAuthBtn = document.getElementById('openAuthBtn');
-      var userMenu = document.getElementById('userMenu');
-      var authStatus = document.getElementById('authStatus');
-      var googleClientIdInput = document.getElementById('googleClientId');
-      var gsiButtonContainer = document.getElementById('gsiButtonContainer');
-      // simplified login inputs
-      var loginEmail = document.getElementById('loginEmail');
-      var loginPassword = document.getElementById('loginPassword');
-      var loginBtn = document.getElementById('loginBtn');
-      // admin setup
-      var adminEmailSetup = document.getElementById('adminEmailSetup');
-      var adminPassSetup = document.getElementById('adminPassSetup');
-      var saveAdminSetupBtn = document.getElementById('saveAdminSetupBtn');
-      var saveGoogleClientIdBtn = document.getElementById('saveGoogleClientIdBtn');
-      var logoutBtn = document.getElementById('logoutBtn');
-      var authMsg = document.getElementById('authMsg');
-
-      function getSessionUser(){ try{ return JSON.parse(sessionStorage.getItem('user')||'null'); }catch(e){return null;} }
-      function setSessionUser(u){ if (!u) sessionStorage.removeItem('user'); else sessionStorage.setItem('user', JSON.stringify(u)); updateAuthUI(); }
-      function isAdmin(){ var u = getSessionUser(); if (!u || !u.email) return false; var admin = (localStorage.getItem('admin_email')||'').toLowerCase(); return admin && admin === u.email.toLowerCase(); }
-
-      function updateAuthUI(){ var u = getSessionUser(); if (u && u.email){ authStatus.textContent = u.email; } else { authStatus.textContent = 'Invitado'; }
-        // Show/hide upload area
-        var uploadArea = document.getElementById('uploadArea'); if (uploadArea) uploadArea.style.display = isAdmin() ? 'block' : 'none';
-        // update social modal save button visibility
-        var saveBtn = document.getElementById('saveSocialBtn'); if (saveBtn) saveBtn.style.display = isAdmin() ? 'inline-block' : 'none';
-        // re-render gallery to show/hide edit/delete if needed
-        renderWorksGallery();
-      }
-
-      // password utilities
-      async function sha256hex(str){ const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)); return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join(''); }
-
-      // login (local) using simplified fields
-      loginBtn && loginBtn.addEventListener('click', async function(){ var email = (loginEmail.value||'').trim().toLowerCase(); var pw = loginPassword.value||''; if (!email || !pw){ alert('Introduce email y contraseña'); return; } var storedHash = localStorage.getItem('admin_password_hash'); var storedAdmin = (localStorage.getItem('admin_email')||'').toLowerCase(); if (!storedHash || !storedAdmin){ alert('No hay cuenta admin configurada. Usa "Configurar cuenta de administrador" para definir email y contraseña.'); return; } var h = await sha256hex(pw); if (h === storedHash && email === storedAdmin){ setSessionUser({ email: email, method:'local' }); authMsg.style.display='block'; setTimeout(function(){ authMsg.style.display='none'; },900); } else { alert('Email o contraseña incorrectos'); } });
-
-      // admin setup (email + password) — visible password
-      saveAdminSetupBtn && saveAdminSetupBtn.addEventListener('click', async function(){ var email = (adminEmailSetup.value||'').trim().toLowerCase(); var pw = adminPassSetup.value||''; if (!email || !pw){ alert('Introduce email y contraseña para admin'); return; } var h = await sha256hex(pw); localStorage.setItem('admin_email', email); localStorage.setItem('admin_password_hash', h); authMsg.style.display='block'; setTimeout(function(){ authMsg.style.display='none'; },1000); updateAuthUI(); });
-
-        // toggle user menu (dropdown)
-        openAuthBtn && openAuthBtn.addEventListener('click', function(e){ if (!userMenu) return; var expanded = openAuthBtn.getAttribute('aria-expanded') === 'true'; if (expanded){ userMenu.hidden = true; userMenu.setAttribute('aria-hidden','true'); openAuthBtn.setAttribute('aria-expanded','false'); } else { userMenu.hidden = false; userMenu.setAttribute('aria-hidden','false'); openAuthBtn.setAttribute('aria-expanded','true'); // focus and init
-          tryInitGoogle(); loginEmail && loginEmail.focus(); adminEmailSetup && (adminEmailSetup.value = localStorage.getItem('admin_email')||''); var cur = localStorage.getItem('google_client_id')||''; googleClientIdInput.value = cur; } e.stopPropagation(); });
-
-        // close menu on outside click or ESC
-        document.addEventListener('click', function(e){ if (!userMenu || userMenu.hidden) return; if (openAuthBtn && (openAuthBtn === e.target || openAuthBtn.contains(e.target))) return; if (userMenu.contains(e.target)) return; userMenu.hidden = true; userMenu.setAttribute('aria-hidden','true'); openAuthBtn.setAttribute('aria-expanded','false'); });
-        document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && userMenu && !userMenu.hidden){ userMenu.hidden = true; userMenu.setAttribute('aria-hidden','true'); openAuthBtn.setAttribute('aria-expanded','false'); openAuthBtn && openAuthBtn.focus(); } });
-
-      logoutBtn && logoutBtn.addEventListener('click', function(){ setSessionUser(null); authMsg.style.display='block'; setTimeout(function(){ authMsg.style.display='none'; },900); if (userMenu){ userMenu.hidden = true; openAuthBtn && openAuthBtn.setAttribute('aria-expanded','false'); } });
-
-      // Google Identity Services init
-      function tryInitGoogle(){ var id = (localStorage.getItem('google_client_id')|| (googleClientIdInput && googleClientIdInput.value) || '').trim(); if (!id) { gsiButtonContainer.innerHTML = '<div class="muted">Pega el Google Client ID en configuración para habilitar inicio con Google.</div>'; return; } localStorage.setItem('google_client_id', id); // save
-        // load script if not present
-        if (!window.google || !window.google.accounts || !window.google.accounts.id){ var s = document.createElement('script'); s.src='https://accounts.google.com/gsi/client'; s.async=true; s.defer=true; s.onload = function(){ initGSI(id); }; document.head.appendChild(s); } else { initGSI(id); }
-      }
-
-      // EmailJS and OTP flow removed: only Google Client ID login and local admin remain
-
-      function initGSI(clientId){ try{ window.google.accounts.id.initialize({ client_id: clientId, callback: handleCredentialResponse }); gsiButtonContainer.innerHTML = ''; window.google.accounts.id.renderButton(gsiButtonContainer, { theme: 'outline', size: 'large' }); }catch(e){ gsiButtonContainer.innerHTML = '<div class="muted">Error al inicializar Google Sign-In.</div>'; } }
-
-      function parseJwtPayload(token){ try{ var p = token.split('.')[1]; p = p.replace(/-/g,'+').replace(/_/g,'/'); var json = decodeURIComponent(atob(p).split('').map(function(c){ return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2); }).join('')); return JSON.parse(json); }catch(e){return null;} }
-
-      function handleCredentialResponse(resp){ var payload = parseJwtPayload(resp.credential); if (!payload || !payload.email){ alert('No se obtuvo email desde Google.'); return; } setSessionUser({ email: payload.email, method:'google' }); authMsg.style.display='block'; setTimeout(function(){ authMsg.style.display='none'; },900); }
-
-      // save google client id explicit
-      saveGoogleClientIdBtn && saveGoogleClientIdBtn.addEventListener('click', function(){ var v = (googleClientIdInput.value||'').trim(); if (!v) { alert('Introduce un Google Client ID válido'); return; } localStorage.setItem('google_client_id', v); tryInitGoogle(); authMsg.style.display='block'; setTimeout(function(){ authMsg.style.display='none'; },800); });
-
-      // initial auth state
-      updateAuthUI();
-
-      // --- Ensure admin defaults (set by user) ---
-      (function ensureAdminDefaults(){
-        try{
-          if (!localStorage.getItem('admin_email')){
-            localStorage.setItem('admin_email','sm172607q@gmail.com');
-          }
-          if (!localStorage.getItem('admin_password_hash')){
-            // compute hash of provided password and store it
-            sha256hex('toroncho21').then(function(h){ localStorage.setItem('admin_password_hash', h); });
-          }
-        }catch(e){}
-      })();
 
       // render footer social links on load
       (function renderFooterSocial(){
